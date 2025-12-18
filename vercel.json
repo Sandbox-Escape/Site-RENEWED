@@ -1,10 +1,10 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/wsgi.py", "use": "@vercel/python" }
+    { "src": "sandbox_escape_site_django/wsgi.py", "use": "@vercel/python" }
   ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "(.*)", "dest": "api/wsgi.py" }
+    { "src": "/(.*)", "dest": "sandbox_escape_site_django/wsgi.py" }
   ]
 }
