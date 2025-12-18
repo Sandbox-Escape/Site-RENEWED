@@ -1,2 +1,4 @@
 Django==6.0
 whitenoise==6.4.0
+gunicorn
+dj-database-url

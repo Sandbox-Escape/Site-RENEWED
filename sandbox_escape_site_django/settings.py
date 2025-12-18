@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cbb)!l!&v@!eq=)%u^dcx1$lz84fhb*#o4w*nu_ij!---46f3r'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-cbb)!l!&v@!eq=)%u^dcx1$lz84fhb*#o4w*nu_ij!---46f3r')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() in ('1', 'true', 'yes')
 
-ALLOWED_HOSTS = ['*']
+# Allow hosts from environment (comma-separated) or default to all during testing
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',') if os.environ.get('ALLOWED_HOSTS') else ['*']
 
 
 # Application definition
@@ -81,6 +82,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# If a DATABASE_URL is provided (e.g. on Vercel), prefer that using dj-database-url
+if os.environ.get('DATABASE_URL'):
+    try:
+        import dj_database_url
+
+        DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    except Exception:
+        # dj-database-url not installed or failed to parse — fall back to default
+        pass
 
 
 # Password validation
