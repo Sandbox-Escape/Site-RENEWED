@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>We got your idea</h1>
+  <p class="lead">Thanks, {{ name }}. We received your idea and will contact you at {{ email }} if needed.</p>
+  <p><a href="{% url 'Main:index' %}">Back to Home</a></p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+ 
+ {% block title %}
+ Projects - SE
+ {% endblock %}
+ 
+ {% block content %}
+    <h1>Projects</h1>
+    <p>Please give us project ideas. We don't have any yet :(</p>
+
+   <form action="{% url 'Main:contact' %}" method="post">
+    {% csrf_token %}
+    <input placeholder="Project Idea" type="text" name="name" required>
+    <input placeholder="Email for contact" type="email" name="email" required>
+    <button style="border: none; padding: 5px; border-radius: 5px;" type="submit">Send</button>
+   </form>
+ {% endblock %}
